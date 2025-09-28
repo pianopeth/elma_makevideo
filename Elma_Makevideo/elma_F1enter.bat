@@ -3,7 +3,6 @@ setlocal EnableDelayedExpansion
 set reccount=0
 
 REM Pointless to use anything else
-set watchfolder=rec
 set eolconf=eolconf.exe
 
 REM Change d3d value to eol.exe if you don't use D3DWindower. It's recommended though (much faster rendering).
@@ -35,19 +34,19 @@ if exist snp*.pcx (
 	goto :end
 	)
 
-if exist %watchfolder%\ (
-	if not exist "%watchfolder%\*.rec" (
-	echo No rec files found in %watchfolder% folder! [ABORTED]
+if exist rec\ (
+	if not exist "rec\*.rec" (
+	echo No rec files found in rec folder! [ABORTED]
 	goto :end
 	)
 ) else (
-	echo %watchfolder% folder doesn't exist! [SKIPPED]
+	echo rec folder doesn't exist! [SKIPPED]
 	goto :end
 	)
 
-ren "%watchfolder%\*.rec" *.r__
-for %%g in ("%watchfolder%\*.r__") do (
-	ren "%watchfolder%\%%~ng.r__" %%~ng.rec
+ren "rec\*.rec" *.r__
+for %%g in ("rec\*.r__") do (
+	ren "rec\%%~ng.r__" %%~ng.rec
 	if exist "_%%~ng\" (
 	echo 	Folder _%%~ng already exists [SKIPPED]
 	echo.
@@ -64,6 +63,11 @@ for %%g in ("%watchfolder%\*.r__") do (
 			)
   		echo 		Starting %d3d%... 
 		echo 		Render PCX sequence with F1+ENTER on %%~ng.rec in replay menu in Elma!
+		echo.
+		echo		Note: F1+ENTER DOESN'T ALWAYS WORK for the first time for some reason!
+		echo		Replay goes slow-motion while rendering.
+		echo		Try again if played back in normal speed!
+		echo.
 		echo 		PLEASE QUIT %d3d% AFTER FINISHED RENDERING!
 		echo.
  		call %d3d%
@@ -90,12 +94,12 @@ for %%g in ("%watchfolder%\*.r__") do (
 					echo.
 					)		
 			)
-	ren "%watchfolder%\%%~ng.rec" %%~ng.re_
+	ren "rec\%%~ng.rec" %%~ng.re_
 )
 
 :end
-	if exist "%watchfolder%\*.re_" ren "%watchfolder%\*.re_" *.rec
-	if exist "%watchfolder%\*.r__" ren "%watchfolder%\*.r__" *.rec
+	if exist "rec\*.re_" ren "rec\*.re_" *.rec
+	if exist "rec\*.r__" ren "rec\*.r__" *.rec
 	echo.
 	echo [FINISHED] at %time:~0,5%
 	echo.
@@ -103,5 +107,5 @@ for %%g in ("%watchfolder%\*.r__") do (
 endlocal & (
   set "greccount=%reccount%"
 )
-pause
+
 exit /b

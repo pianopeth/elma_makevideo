@@ -118,6 +118,6 @@ goto :end
 	echo.
 	echo Note: PCX sequences aren't deleted after mp4 conversion, you have to delete them manually.
 	echo.
-	pause
+
 	exit /B
 
